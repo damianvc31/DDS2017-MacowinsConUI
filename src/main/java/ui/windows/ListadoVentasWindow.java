@@ -9,42 +9,47 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
 import model.Venta;
-import ui.vm.AlgoViewModel;
+import ui.vm.VentasViewModel;
 
-public class ListadoVentasWindow extends SimpleWindow<AlgoViewModel> {
+public class ListadoVentasWindow extends SimpleWindow<VentasViewModel> {
 
-	public ListadoVentasWindow(WindowOwner parent) {
-		super(parent, new AlgoViewModel());
+	public ListadoVentasWindow(WindowOwner parent) {//construye la ventana fijandole el padre
+		super(parent, new VentasViewModel());	//y el objeto que sera el modelo de la ventana
 	}
 
 	@Override
 	protected void addActions(Panel panelActions) {
 		new Button(panelActions)
 		.setCaption("Nueva venta")
-		.onClick(this::registrarVenta);
+		.onClick(()->this.nuevaVenta());
 	}
-
+	@Override
 	protected void createFormPanel(Panel formPanel) {
 		this.setTitle("Macowins - Ventas");
 		
-		Table tableVentas = new Table<>(formPanel, Venta.class);
-		Column<Venta> columnaFecha = new Column<Venta>(tableVentas);
-		columnaFecha.setTitle("Fecha");
+		Table<Venta> tableVentas = new Table<>(formPanel, Venta.class);
+		tableVentas.setNumberVisibleRows(30).bindItemsToProperty("ventas");
+		
+		/*Column<Venta> columnaFecha = new Column<Venta>(tableVentas);
+		columnaFecha.setTitle("Fecha");*/
 		
 		Column<Venta> columnaPrenda = new Column<Venta>(tableVentas);
-		columnaPrenda.setTitle("Prenda");
+		columnaPrenda.setTitle("Prenda").setFixedSize(1000).bindContentsToProperty("prenda");
 		
 		Column<Venta> columnaUnidades = new Column<Venta>(tableVentas);
-		columnaUnidades.setTitle("Prenda");
+		columnaUnidades.setTitle("Cantidad").setFixedSize(1000).bindContentsToProperty("unidades");
 		
-		tableVentas.setHeight(300);
-		tableVentas.setWidth(600);
+		tableVentas.setHeight(300); //no funcionan
+		tableVentas.setWidth(600); 
 	}
 
-	public void registrarVenta() {
-		Dialog<?> dialog = new RegistrarVentaWindow(this);
+	public void nuevaVenta() {
+		Dialog<?> dialog = new NuevaVentaWindow(this);
 		dialog.open();
 		dialog.onAccept(() -> {});
+	}
+	public void registrarVenta(Venta venta){
+		this.getModelObject().registrarVenta(venta);
 	}
 
 	

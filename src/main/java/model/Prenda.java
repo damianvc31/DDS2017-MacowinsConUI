@@ -1,8 +1,5 @@
 package model;
 
-import org.uqbar.commons.utils.Observable;
-
-@Observable
 public class Prenda {
 	private Estado estado;
 	private String nombre;
@@ -11,17 +8,22 @@ public class Prenda {
 	private double precioBase;
 	private int stock;
 
-	public Prenda(String nombre, String marca, double precioBase, TipoPrenda tipo) {
+	public Prenda(String nombre, String marca, Estado estado,double precioBase, TipoPrenda tipo) {
 		super();
-		this.estado = new Nueva();
+		this.estado = estado;
 		this.nombre = nombre;
 		this.marca = marca;
 		this.tipo = tipo;
+		this.precioBase = precioBase;
 		this.stock = 0;
 	}
 	
-	public Venta vender(int unidades) {
-		return new Venta(unidades, this);
+	public void incrementarStock(int unidades) {
+		this.stock += unidades;
+	}
+	
+	public void vender(int unidades) {
+		this.stock -= unidades;
 	}
 	
 	public double precio() {
@@ -30,10 +32,6 @@ public class Prenda {
 
 	private double descuento() {
 		return estado.descuento(this.precioBase);
-	}
-	
-	public void vender() {
-		this.stock--;
 	}
 	
 	public double getPrecioBase() {
@@ -60,8 +58,12 @@ public class Prenda {
 		return tipo;
 	}
 
-	public void incrementarStock(int unidades) {
-		this.stock += unidades;
+	@Override
+	public String toString(){
+		return this.nombre + " - Marca: " + this.marca + " - " + this.estado 
+				+ " - Rubro: " + this.tipo.toString() 
+				+ " - Precio: " + this.precioBase;
+				
 	}
 
 }
