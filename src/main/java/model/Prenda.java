@@ -62,7 +62,7 @@ public class Prenda {
 	public String toString(){
 		return this.nombre + " - Marca: " + this.marca + " - " + this.estado 
 				+ " - Rubro: " + this.tipo.toString() 
-				+ " - Precio: " + this.precioBase;
+				+ " - Precio Base: " + this.precioBase + " - Precio Final: " + this.precio();
 				
 	}
 
