@@ -65,5 +65,10 @@ public class Prenda {
 				+ " - Precio Base: " + this.precioBase + " - Precio Final: " + this.precio();
 				
 	}
+	/*public String getDescripcion(){
+		return this.nombre + " - Marca: " + this.marca + " - " + this.estado 
+				+ " - Rubro: " + this.tipo.toString() 
+				+ " - Precio Base: " + this.precioBase + " - Precio Final: " + this.precio();
+	}*/
 
 }

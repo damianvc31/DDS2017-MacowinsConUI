@@ -16,18 +16,20 @@ public class NuevaVentaWindow extends Dialog<VentaViewModel> {
 
 	public NuevaVentaWindow(WindowOwner owner) {
 		super(owner, new VentaViewModel());
+		this.setTitle("Nueva venta");
+		this.setTaskDescription("Elija una prenda y su cantidad para registrar una nueva venta");
 	}
 
 	@Override
 	protected void createFormPanel(Panel mainPanel) {
-		this.setTitle("Nueva venta");
-		
+	
 		Panel form = new Panel(mainPanel);
 		form.setLayout(new ColumnLayout(2));
 
 		new Label(form).setText("Prendas");
 		Selector<Prenda> selectorPrenda = new Selector<Prenda>(form).allowNull(true);
 		selectorPrenda.bindItemsToProperty("prendas");
+						//.setAdapter(new PropertyAdapter(Prenda.class,"descripcion"));
 		selectorPrenda.bindValueToProperty("prendaSeleccionada");
 
 		new Label(form).setText("Prenda Seleccionada");

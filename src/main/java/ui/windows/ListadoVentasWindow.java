@@ -7,6 +7,7 @@ import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.lacar.ui.model.Action;
 
 import model.Venta;
 import ui.vm.VentasViewModel;
@@ -45,8 +46,21 @@ public class ListadoVentasWindow extends SimpleWindow<VentasViewModel> {
 
 	public void nuevaVenta() {
 		Dialog<?> dialog = new NuevaVentaWindow(this);
+		final Action actionAccept = new Action() {
+					@Override
+					public void execute(){
+						System.out.println("Accepted");
+					}
+				};
+		final Action actionCancel = new Action() {
+					@Override
+					public void execute(){
+						System.out.println("Cancelled");
+					}
+				};
+		dialog.onAccept(actionAccept);
+		dialog.onCancel(actionCancel);
 		dialog.open();
-		dialog.onAccept(() -> {});
 	}
 	public void registrarVenta(Venta venta){
 		this.getModelObject().registrarVenta(venta);
